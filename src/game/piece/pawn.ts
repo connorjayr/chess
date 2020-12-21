@@ -4,6 +4,9 @@ import {EnPassantMove} from '../move/en-passant-move';
 import {Move} from '../move/move';
 import {Color, Piece} from './piece';
 
+/**
+ * A pawn piece.
+ */
 export class Pawn extends Piece {
   constructor(game: Game, color: Color, coordinate: Coordinate) {
     super(game, color, coordinate);
