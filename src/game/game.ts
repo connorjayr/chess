@@ -9,8 +9,14 @@ import {Color, Piece} from './piece/piece';
 import {Queen} from './piece/queen';
 import {Rook} from './piece/rook';
 
+/**
+ * The size of the game board.
+ */
 export const SIZE = 8;
 
+/**
+ * A chess game.
+ */
 export class Game {
   board: (Piece | null)[][];
   piecesByColor: {[color in Color]: Piece[]};
@@ -34,10 +40,10 @@ export class Game {
   }
 
   /**
-   * Returns the last move which was made by either player, or undefined if no
-   * players have moved yet.
-   * @returns the last move which was made by either player, or undefined if no
-   * players have moved yet
+   * Returns the last move made by either player, or undefined if no moves have
+   * been made yet.
+   * @returns the last move made by either player, or undefined if no moves have
+   * been made yet
    */
   lastMove(): Move | undefined {
     if (this.moveHistory.length === 0) {
@@ -46,6 +52,14 @@ export class Game {
     return this.moveHistory[this.moveHistory.length - 1];
   }
 
+  /**
+   * Returns the piece at a given coordinate, or null if there is no piece at
+   * that coordinate. If the coordinate is not within the bounds of the board,
+   * then null is returned.
+   * @param coordinate the coordinate
+   * @returns the piece at `coordinate`, or null if there is no piece at
+   * `coordinate`
+   */
   pieceAt(coordinate: Coordinate): Piece | null {
     if (!this.isInBoard(coordinate)) {
       // If the coordinate is not within the board, then return null
@@ -55,8 +69,13 @@ export class Game {
     return this.board[coordinate.rank][coordinate.file];
   }
 
-  isInBoard(coordinate: Coordinate) {
-    // Returns whether the coordinate is within the board or not
+  /**
+   * Returns whether or not the given coordinate is within the bounds of the
+   * board.
+   * @param coordinate the coordinate
+   * @returns true if `coordinate` is in the board, false otherwise
+   */
+  isInBoard(coordinate: Coordinate): boolean {
     return (
       coordinate.rank >= 0 &&
       coordinate.rank < SIZE &&
