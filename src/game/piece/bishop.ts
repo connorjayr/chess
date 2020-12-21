@@ -11,6 +11,29 @@ export class Bishop extends Piece {
   getCandidateMoves(): Move[] {
     const moves: Move[] = [];
 
+    for (const step of [
+      [1, 1],
+      [1, -1],
+      [-1, -1],
+      [-1, 1],
+    ]) {
+      for (
+        let to: Coordinate = {
+          rank: this.coordinate.rank + step[0],
+          file: this.coordinate.file + step[1],
+        };
+        this.game.isInBoard(to);
+        to = {rank: to.rank + step[0], file: to.file + step[1]}
+      ) {
+        moves.push(new Move(this, this.coordinate, to));
+
+        if (this.game.pieceAt(to) !== null) {
+          // If there is a piece at the destination, limit piece movement in
+          // the current direction to the current coordinate
+          break;
+        }
+      }
+    }
     return moves;
   }
 }

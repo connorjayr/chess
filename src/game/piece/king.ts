@@ -10,6 +10,23 @@ export class King extends Piece {
 
   getCandidateMoves(): Move[] {
     const moves: Move[] = [];
+    for (let rankOffset = -1; rankOffset <= 1; ++rankOffset) {
+      for (let fileOffset = -1; fileOffset <= 1; ++fileOffset) {
+        const to: Coordinate = {
+          rank: this.coordinate.rank + rankOffset,
+          file: this.coordinate.file + fileOffset,
+        };
+        if (
+          (rankOffset === 0 && fileOffset === 0) ||
+          !this.game.isInBoard(to)
+        ) {
+          continue;
+        }
+        moves.push(new Move(this, this.coordinate, to));
+      }
+    }
+
+    // TODO: Castling with king's side and queen's side rooks
 
     return moves;
   }

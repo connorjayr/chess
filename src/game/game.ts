@@ -47,17 +47,22 @@ export class Game {
   }
 
   pieceAt(coordinate: Coordinate): Piece | null {
-    if (
-      coordinate.rank < 0 ||
-      coordinate.rank >= SIZE ||
-      coordinate.file < 0 ||
-      coordinate.file >= SIZE
-    ) {
+    if (!this.isInBoard(coordinate)) {
       // If the coordinate is not within the board, then return null
       return null;
     }
     // Otherwise, return the piece on the board
     return this.board[coordinate.rank][coordinate.file];
+  }
+
+  isInBoard(coordinate: Coordinate) {
+    // Returns whether the coordinate is within the board or not
+    return (
+      coordinate.rank >= 0 &&
+      coordinate.rank < SIZE &&
+      coordinate.file >= 0 &&
+      coordinate.file < SIZE
+    );
   }
 
   /**
